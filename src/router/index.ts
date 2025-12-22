@@ -16,21 +16,28 @@ const router = createRouter({
       path: '/register',
       name: 'Register',
       component: RegisterView,
+      meta: { guestOnly: true },
     },
     {
       path: '/login',
       name: 'Login',
       component: LoginView,
+      meta: { guestOnly: true },
     },
     {
       path: '/home',
       name: 'Home',
       component: HomeView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/draw',
       name: 'Draw',
       component: DrawView,
+      meta: {
+        requiresAuth: true,
+        requiresBet: true,
+      },
     },
   ],
 })
