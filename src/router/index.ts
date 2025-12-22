@@ -4,6 +4,8 @@ import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
 import HomeView from '@/views/HomeView.vue'
 import DrawView from '@/views/DrawView.vue'
+import { useAuthStore } from '@/stores/auth.store'
+import { useBetStore } from '@/stores/bet.store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +42,26 @@ const router = createRouter({
       },
     },
   ],
+})
+router.beforeEach((to) => {
+  const authStore = useAuthStore()
+  const betStore = useBetStore()
+
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    return '/login'
+  }
+
+  if (to.meta.guestOnly && authStore.isAuthenticated) {
+    return '/home'
+  }
+
+  if (to.meta.requiresBet && !betStore.hasBet) {
+    return '/home'
+  }
+
+  if (betStore.drawInProgress && to.path !== '/draw') {
+    return false
+  }
 })
 
 export default router

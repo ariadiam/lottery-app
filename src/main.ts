@@ -12,7 +12,9 @@ const pinia = createPinia()
 app.use(pinia)
 
 const authStore = useAuthStore()
-authStore.loadSession()
+
+await authStore.loadSession()
+authStore.initAuthListener()
 
 app.use(router)
 app.use(createNaiveUI())
