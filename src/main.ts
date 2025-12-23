@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createNaiveUI } from '@/plugins/naive-ui'
 import { useAuthStore } from '@/stores/auth.store'
+import './styles/main.scss'
 
 import App from './App.vue'
 import router from './router'

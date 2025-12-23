@@ -1,7 +1,34 @@
-import { create, NButton, NInput, NForm, NFormItem, NCard, NMessageProvider } from 'naive-ui'
+import {
+  create,
+  NInput,
+  NForm,
+  NFormItem,
+  NLayout,
+  NLayoutHeader,
+  NLayoutContent,
+  NMenu,
+  NButton,
+  NAvatar,
+  NCard,
+  NIcon,
+  NMessageProvider,
+} from 'naive-ui'
 
 export function createNaiveUI() {
   return create({
-    components: [NButton, NInput, NForm, NFormItem, NCard, NMessageProvider],
+    components: [
+      NLayout,
+      NLayoutHeader,
+      NLayoutContent,
+      NMenu,
+      NButton,
+      NAvatar,
+      NCard,
+      NInput,
+      NForm,
+      NFormItem,
+      NIcon,
+      NMessageProvider,
+    ],
   })
 }
