@@ -1,8 +1,13 @@
 import { defineStore } from 'pinia'
 
+type BetState = {
+  selectedNumbers: number[]
+  drawInProgress: boolean
+}
+
 export const useBetStore = defineStore('bet', {
-  state: () => ({
-    selectedNumbers: [] as number[],
+  state: (): BetState => ({
+    selectedNumbers: [],
     drawInProgress: false,
   }),
 

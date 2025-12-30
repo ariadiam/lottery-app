@@ -2,11 +2,17 @@ import { defineStore } from 'pinia'
 import { supabase } from '../services/supabase'
 import type { User } from '@supabase/supabase-js'
 
+type AuthState = {
+  user: User | null
+  loading: boolean
+  error: string | null
+}
+
 export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    user: null as User | null,
+  state: (): AuthState => ({
+    user: null,
     loading: false,
-    error: null as string | null,
+    error: null,
   }),
 
   getters: {
@@ -23,19 +29,27 @@ export const useAuthStore = defineStore('auth', {
           email,
           password,
         })
+        console.debug('supabase signUp response:', { data, error })
 
         if (error) {
           this.error = error.message
           throw error
         }
 
-        // user may exist even if session is null (email confirmation)
-        this.user = data.user
+        if (data.session) {
+          await supabase.auth.signOut()
+        }
+
+        this.user = null
 
         return {
-          user: data.user,
-          needsEmailConfirmation: !data.session,
+          success: true,
+          // needsEmailConfirmation: !data.session,
         }
+      } catch (err) {
+        console.error('Registration error:', err)
+        // return { success: false, error: this.error || 'Registration failed. Please try again.' }
+        throw err
       } finally {
         this.loading = false
       }
@@ -56,8 +70,13 @@ export const useAuthStore = defineStore('auth', {
           throw error
         }
 
+        // Returning user after successful login
         this.user = data.user
         return data.user
+      } catch (err) {
+        console.error('Login error:', err)
+        // return { error: this.error || 'Login failed. Please try again.' }
+        throw err
       } finally {
         this.loading = false
       }
@@ -73,12 +92,17 @@ export const useAuthStore = defineStore('auth', {
           throw error
         }
 
+        // Setting user from session if available
         this.user = data.session?.user ?? null
+      } catch (err) {
+        console.error('Load session error:', err)
       } finally {
         this.loading = false
       }
     },
+
     initAuthListener() {
+      // Listening for authentication state changes (useful for session persistence)
       supabase.auth.onAuthStateChange((_event, session) => {
         this.user = session?.user ?? null
       })
@@ -94,8 +118,9 @@ export const useAuthStore = defineStore('auth', {
           this.error = error.message
           throw error
         }
-
         this.user = null
+      } catch (err) {
+        console.error('Logout error:', err)
       } finally {
         this.loading = false
       }

@@ -2,10 +2,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { type FormInst, type FormRules } from 'naive-ui'
-import { useAuthStore } from '@/stores/auth.store'
 import { useAuthForm } from '@/composables/useAuthForm'
 
-const authStore = useAuthStore()
 const router = useRouter()
 const { loading, submit } = useAuthForm()
 
@@ -29,15 +27,7 @@ const handleSubmit = () => {
     if (errors) {
       return
     }
-    submit(
-      async () => {
-        await authStore.login(form.value.email, form.value.password)
-      },
-      () => {
-        router.push('/home')
-      },
-      'Login successful!',
-    )
+    submit(form.value.email, form.value.password)
   })
 }
 

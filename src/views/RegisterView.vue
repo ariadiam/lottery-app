@@ -3,11 +3,11 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth.store'
 import { useRouter } from 'vue-router'
 import { type FormInst, type FormRules } from 'naive-ui'
-import { useAuthForm } from '@/composables/useAuthForm'
+import { useRegisterForm } from '@/composables/useRegisterForm'
 
 const authStore = useAuthStore()
 const router = useRouter()
-const { submit } = useAuthForm()
+const { submit } = useRegisterForm()
 const formRef = ref<FormInst | null>(null)
 
 const form = ref({
@@ -43,16 +43,11 @@ const handleSubmit = () => {
       return
     }
 
-    submit(
-      async () => {
-        await authStore.register(form.value.email, form.value.password)
-      },
-      () => {
-        router.push('/login')
-      },
-      'Registration successful! Please log in.',
-    )
+    submit(form.value.email, form.value.password)
   })
+}
+const goToLogin = () => {
+  router.push('/login')
 }
 </script>
 
@@ -76,5 +71,11 @@ const handleSubmit = () => {
         Sign up
       </n-button>
     </n-form>
+    <div style="text-align: center; margin-top: 1rem">
+      <span>Already have an account?</span>
+      <n-button text type="primary" style="margin-left: 0.5rem" @click="goToLogin">
+        Login now
+      </n-button>
+    </div>
   </n-card>
 </template>
