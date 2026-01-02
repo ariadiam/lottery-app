@@ -12,6 +12,9 @@ import {
   NCard,
   NIcon,
   NMessageProvider,
+  NGrid,
+  NGi,
+  NTag,
 } from 'naive-ui'
 
 export function createNaiveUI() {
@@ -29,6 +32,9 @@ export function createNaiveUI() {
       NFormItem,
       NIcon,
       NMessageProvider,
+      NGrid,
+      NGi,
+      NTag,
     ],
   })
 }
