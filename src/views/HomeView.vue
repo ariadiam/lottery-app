@@ -8,7 +8,6 @@ const betStore = useBetStore()
 
 const numbers = Array.from({ length: 30 }, (_, index) => index + 1)
 
-// Selected numbers from Pinia store
 const selectedNumbers = computed(() => betStore.selectedNumbers)
 const canSubmit = computed(() => betStore.hasBet)
 
@@ -32,7 +31,6 @@ const submitBet = () => {
 <template>
   <n-card title="Create your bet">
     <n-grid cols="2" x-gap="24" y-gap="24">
-      <!-- LEFT -->
       <n-gi>
         <div class="number-board">
           <n-button
@@ -47,7 +45,6 @@ const submitBet = () => {
         </div>
       </n-gi>
 
-      <!-- RIGHT -->
       <n-gi>
         <div class="bet-panel">
           <h3>Selected Numbers</h3>

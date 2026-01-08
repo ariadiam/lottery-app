@@ -43,9 +43,18 @@ const router = createRouter({
     },
   ],
 })
-router.beforeEach((to) => {
+router.beforeEach((to, from) => {
   const authStore = useAuthStore()
   const betStore = useBetStore()
+
+  // if (betStore.drawInProgress && to.path !== '/draw') {
+  //   return false
+  //   // return '/draw'
+  // }
+
+  if (from.name === 'Draw' && betStore.drawInProgress && to.name !== 'Draw') {
+    return false
+  }
 
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     return '/login'
@@ -57,10 +66,6 @@ router.beforeEach((to) => {
 
   if (to.meta.requiresBet && !betStore.hasBet) {
     return '/home'
-  }
-
-  if (betStore.drawInProgress && to.path !== '/draw') {
-    return false
   }
 })
 

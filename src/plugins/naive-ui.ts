@@ -15,6 +15,9 @@ import {
   NGrid,
   NGi,
   NTag,
+  NSpace,
+  NModal,
+  NAlert,
 } from 'naive-ui'
 
 export function createNaiveUI() {
@@ -35,6 +38,9 @@ export function createNaiveUI() {
       NGrid,
       NGi,
       NTag,
+      NSpace,
+      NModal,
+      NAlert,
     ],
   })
 }
