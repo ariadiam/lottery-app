@@ -109,12 +109,19 @@ After saving → redirect to Home to start a new game
 
 ## 🔽 Clone & Run Locally
 
+> **Note:** This project requires **Node.js v18 or higher**.  
+> You can manage Node versions with [nvm](https://github.com/nvm-sh/nvm):
+
+````bash
+nvm install 18
+nvm use 18
+
 ### 1. Clone the repository
 
 ```bash
 git clone https://github.com/ariadiam/lottery-app.git
 cd lottery-app
-```
+````
 
 ### 2. Install dependencies
 
