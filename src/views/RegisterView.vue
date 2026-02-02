@@ -1,3 +1,32 @@
+<template>
+  <n-card title="Register" style="max-width: 400px; margin: 4rem auto">
+    <n-form ref="formRef" :model="form" :rules="rules" label-placement="top">
+      <n-form-item label="Email" path="email">
+        <n-input v-model:value="form.email" placeholder="Email" />
+      </n-form-item>
+      <n-form-item label="Password" path="password">
+        <n-input v-model:value="form.password" type="password" placeholder="Password" />
+      </n-form-item>
+      <n-form-item label="Confirm Password" path="confirmPassword">
+        <n-input
+          v-model:value="form.confirmPassword"
+          type="password"
+          placeholder="Confirm Password"
+        />
+      </n-form-item>
+      <n-button type="primary" block :loading="authStore.loading" @click="handleSubmit">
+        Sign up
+      </n-button>
+    </n-form>
+    <div style="text-align: center; margin-top: 1rem">
+      <span>Already have an account?</span>
+      <n-button text type="primary" style="margin-left: 0.5rem" @click="goToLogin">
+        Login now
+      </n-button>
+    </div>
+  </n-card>
+</template>
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth.store'
@@ -50,32 +79,3 @@ const goToLogin = () => {
   router.push('/login')
 }
 </script>
-
-<template>
-  <n-card title="Register" style="max-width: 400px; margin: 4rem auto">
-    <n-form ref="formRef" :model="form" :rules="rules" label-placement="top">
-      <n-form-item label="Email" path="email">
-        <n-input v-model:value="form.email" placeholder="Email" />
-      </n-form-item>
-      <n-form-item label="Password" path="password">
-        <n-input v-model:value="form.password" type="password" placeholder="Password" />
-      </n-form-item>
-      <n-form-item label="Confirm Password" path="confirmPassword">
-        <n-input
-          v-model:value="form.confirmPassword"
-          type="password"
-          placeholder="Confirm Password"
-        />
-      </n-form-item>
-      <n-button type="primary" block :loading="authStore.loading" @click="handleSubmit">
-        Sign up
-      </n-button>
-    </n-form>
-    <div style="text-align: center; margin-top: 1rem">
-      <span>Already have an account?</span>
-      <n-button text type="primary" style="margin-left: 0.5rem" @click="goToLogin">
-        Login now
-      </n-button>
-    </div>
-  </n-card>
-</template>

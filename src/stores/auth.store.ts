@@ -70,7 +70,6 @@ export const useAuthStore = defineStore('auth', {
           throw error
         }
 
-        // Returning user after successful login
         this.user = data.user
         return data.user
       } catch (err) {
@@ -82,31 +81,31 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async loadSession() {
-      this.loading = true
+    // async loadSession() {
+    //   this.loading = true
 
-      try {
-        const { data, error } = await supabase.auth.getSession()
-        if (error) {
-          this.error = error.message
-          throw error
-        }
+    //   try {
+    //     const { data, error } = await supabase.auth.getSession()
+    //     if (error) {
+    //       this.error = error.message
+    //       throw error
+    //     }
 
-        // Setting user from session if available
-        this.user = data.session?.user ?? null
-      } catch (err) {
-        console.error('Load session error:', err)
-      } finally {
-        this.loading = false
-      }
-    },
+    //     // Setting user from session if available
+    //     this.user = data.session?.user ?? null
+    //   } catch (err) {
+    //     console.error('Load session error:', err)
+    //   } finally {
+    //     this.loading = false
+    //   }
+    // },
 
-    initAuthListener() {
-      // Listening for authentication state changes (useful for session persistence)
-      supabase.auth.onAuthStateChange((_event, session) => {
-        this.user = session?.user ?? null
-      })
-    },
+    // initAuthListener() {
+    //   // Listening for authentication state changes (useful for session persistence)
+    //   supabase.auth.onAuthStateChange((_event, session) => {
+    //     this.user = session?.user ?? null
+    //   })
+    // },
 
     async logout() {
       this.loading = true

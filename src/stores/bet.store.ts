@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { supabase } from '@/services/supabase'
+import { useAuthStore } from './auth.store'
 
 const MAX_NUMBERS = 5
 
@@ -86,11 +87,16 @@ export const useBetStore = defineStore('bet', {
     },
 
     async saveDrawToHistory() {
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser()
-      if (userError || !user) {
+      // const {
+      //   data: { user },
+      //   error: userError,
+      // } = await supabase.auth.getUser()
+      // if (userError || !user) {
+      //   throw new Error('User not authenticated')
+      // }
+
+      const user = useAuthStore().user
+      if (!user) {
         throw new Error('User not authenticated')
       }
 

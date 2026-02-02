@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createNaiveUI } from '@/plugins/naive-ui'
-import { useAuthStore } from '@/stores/auth.store'
+// import { useAuthStore } from '@/stores/auth.store'
 import './styles/main.scss'
 
 import App from './App.vue'
@@ -12,10 +12,10 @@ const pinia = createPinia()
 
 app.use(pinia)
 
-const authStore = useAuthStore()
+// const authStore = useAuthStore()
 
-await authStore.loadSession()
-authStore.initAuthListener()
+// await authStore.loadSession()
+// authStore.initAuthListener()
 
 app.use(router)
 app.use(createNaiveUI())

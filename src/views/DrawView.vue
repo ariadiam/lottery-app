@@ -1,49 +1,3 @@
-<script setup lang="ts">
-import { onMounted, watch, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useBetStore } from '@/stores/bet.store'
-import { useDraw } from '@/composables/useDraw'
-
-const betStore = useBetStore()
-const { startDraw } = useDraw()
-const router = useRouter()
-
-const showModal = ref(false)
-
-onMounted(() => {
-  startDraw()
-})
-
-// Detect draw completion
-watch(
-  () => betStore.drawInProgress,
-  (inProgress) => {
-    if (!inProgress && betStore.drawNumbers.length === 5) {
-      showModal.value = true
-    }
-  },
-)
-
-const isMatch = (number: number) => betStore.drawNumbers.includes(number)
-
-// Modal actions
-const goBack = () => {
-  betStore.reset()
-  router.push('/home')
-}
-
-const saveToHistory = async () => {
-  try {
-    await betStore.saveDrawToHistory()
-    betStore.reset()
-    router.push('/home')
-  } catch (error) {
-    console.error('Failed to save draw history', error)
-    // optional: show error notification
-  }
-}
-</script>
-
 <template>
   <div class="draw-page">
     <n-grid cols="2" x-gap="32">
@@ -107,6 +61,54 @@ const saveToHistory = async () => {
     </n-modal>
   </div>
 </template>
+
+<script setup lang="ts">
+import { onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useBetStore } from '@/stores/bet.store'
+import { useDraw } from '@/composables/useDraw'
+
+const betStore = useBetStore()
+const { runDraw } = useDraw()
+const router = useRouter()
+
+// const showModal = ref(false)
+
+const showModal = computed(() => {
+  return !betStore.drawInProgress && betStore.drawNumbers.length === 5
+})
+
+const isMatch = (number: number) => betStore.drawNumbers.includes(number)
+
+onMounted(() => {
+  runDraw()
+})
+
+// watch(
+//   () => betStore.drawInProgress,
+//   (inProgress) => {
+//     if (!inProgress && betStore.drawNumbers.length === 5) {
+//       showModal.value = true
+//     }
+//   },
+// )
+
+const goBack = () => {
+  betStore.reset()
+  router.push('/home')
+}
+
+const saveToHistory = async () => {
+  try {
+    await betStore.saveDrawToHistory()
+    betStore.reset()
+    router.push('/home')
+  } catch (error) {
+    console.error('Failed to save draw history', error)
+    // optional: show error notification
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .draw-page {

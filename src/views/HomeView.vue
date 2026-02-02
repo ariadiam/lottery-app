@@ -1,33 +1,3 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useBetStore } from '@/stores/bet.store'
-
-const router = useRouter()
-const betStore = useBetStore()
-
-const numbers = Array.from({ length: 30 }, (_, index) => index + 1)
-
-const selectedNumbers = computed(() => betStore.selectedNumbers)
-const canSubmit = computed(() => betStore.hasBet)
-
-const isNumberSelected = (number: number): boolean => {
-  return selectedNumbers.value.includes(number)
-}
-
-const isNumberDisabled = (number: number): boolean => {
-  return !isNumberSelected(number) && betStore.hasReachedLimit
-}
-
-const toggleNumber = (number: number) => {
-  betStore.toggleNumber(number)
-}
-
-const submitBet = () => {
-  router.push('/draw')
-}
-</script>
-
 <template>
   <n-card title="Create your bet">
     <n-grid cols="2" x-gap="24" y-gap="24">
@@ -66,6 +36,36 @@ const submitBet = () => {
     </n-grid>
   </n-card>
 </template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useBetStore } from '@/stores/bet.store'
+
+const router = useRouter()
+const betStore = useBetStore()
+
+const numbers = Array.from({ length: 30 }, (_, index) => index + 1)
+
+const selectedNumbers = computed(() => betStore.selectedNumbers)
+const canSubmit = computed(() => betStore.hasBet)
+
+const isNumberSelected = (number: number): boolean => {
+  return selectedNumbers.value.includes(number)
+}
+
+const isNumberDisabled = (number: number): boolean => {
+  return !isNumberSelected(number) && betStore.hasReachedLimit
+}
+
+const toggleNumber = (number: number) => {
+  betStore.toggleNumber(number)
+}
+
+const submitBet = () => {
+  router.push('/draw')
+}
+</script>
 
 <style lang="scss" scoped>
 .number-board {

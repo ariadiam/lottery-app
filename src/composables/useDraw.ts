@@ -7,7 +7,7 @@ function delay(ms: number) {
 export function useDraw() {
   const betStore = useBetStore()
 
-  async function startDraw() {
+  async function runDraw() {
     if (betStore.drawInProgress) return
 
     betStore.startDraw()
@@ -32,6 +32,6 @@ export function useDraw() {
   }
 
   return {
-    startDraw,
+    runDraw,
   }
 }

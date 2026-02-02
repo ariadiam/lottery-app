@@ -1,3 +1,23 @@
+<template>
+  <n-card title="Sign In" style="max-width: 400px; margin: 4rem auto">
+    <n-form ref="formRef" :model="form" :rules="rules" label-placement="top">
+      <n-form-item label="Email" path="email">
+        <n-input v-model:value="form.email" placeholder="Email" />
+      </n-form-item>
+      <n-form-item label="Password" path="password">
+        <n-input v-model:value="form.password" type="password" placeholder="Password" />
+      </n-form-item>
+      <n-button type="primary" block :loading="loading" @click="handleSubmit"> Sign In </n-button>
+    </n-form>
+    <div style="text-align: center; margin-top: 1rem">
+      <span>Don’t have an account?</span>
+      <n-button text type="primary" style="margin-left: 0.5rem" @click="goToRegister">
+        Register now
+      </n-button>
+    </div>
+  </n-card>
+</template>
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -35,23 +55,3 @@ const goToRegister = () => {
   router.push('/register')
 }
 </script>
-
-<template>
-  <n-card title="Sign In" style="max-width: 400px; margin: 4rem auto">
-    <n-form ref="formRef" :model="form" :rules="rules" label-placement="top">
-      <n-form-item label="Email" path="email">
-        <n-input v-model:value="form.email" placeholder="Email" />
-      </n-form-item>
-      <n-form-item label="Password" path="password">
-        <n-input v-model:value="form.password" type="password" placeholder="Password" />
-      </n-form-item>
-      <n-button type="primary" block :loading="loading" @click="handleSubmit"> Sign In </n-button>
-    </n-form>
-    <div style="text-align: center; margin-top: 1rem">
-      <span>Don’t have an account?</span>
-      <n-button text type="primary" style="margin-left: 0.5rem" @click="goToRegister">
-        Register now
-      </n-button>
-    </div>
-  </n-card>
-</template>
