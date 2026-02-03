@@ -138,7 +138,7 @@ Copy the Project URL and Publishable Key.
 
 ### 4. Configure environment variables
 
-Create a `.env` file in the project root using `.env.example` as reference:
+Create a `.env` file in the project root using the existing `.env` as reference (it's an example .env file):
 
 ```env
 VITE_SUPABASE_URL=your_supabase_project_url
