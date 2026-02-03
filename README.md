@@ -34,15 +34,12 @@ Authentication is handled using **Supabase Email/Password Auth**.
 
 ### Sign In
 
-- Centered sign-in form
 - Email & password validation
-- “Register now” option
 - On success → redirect to Home
 - On failure → error message displayed
 
 ### Register
 
-- Centered registration form
 - Email & password validation
 - On success → redirect to Sign In with success message
 - On failure → error message displayed
