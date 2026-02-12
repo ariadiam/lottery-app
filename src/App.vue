@@ -20,5 +20,3 @@ const showHeader = computed(() => {
     </n-layout>
   </n-message-provider>
 </template>
-
-<style scoped></style>

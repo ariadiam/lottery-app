@@ -22,6 +22,18 @@ const menuOptions: MenuOption[] = [
 
 const activeKey = computed(() => route.path)
 
+const menuNodeProps = (option: MenuOption) => {
+  if (option.key === '/draw') {
+    return { 'data-testid': 'menu-live-draw' }
+  }
+
+  if (option.key === '/home') {
+    return { 'data-testid': 'menu-home' }
+  }
+
+  return {}
+}
+
 const handleMenuChange = (key: string) => {
   router.push(key)
 }
@@ -36,22 +48,29 @@ const handleLogout = async () => {
   <n-layout-header bordered class="app-header">
     <div class="header">
       <n-menu
-        v-model:value="activeKey"
+        :value="activeKey"
         mode="horizontal"
         :options="menuOptions"
+        :node-props="menuNodeProps"
         responsive
         style="width: 240px"
         @update:value="handleMenuChange"
       />
 
       <div class="player">
-        <n-avatar round>
+        <n-avatar round data-testid="user-avatar">
           <n-icon size="22">
             <PersonCircleOutline />
           </n-icon>
         </n-avatar>
 
-        <n-button quaternary type="error" size="small" @click="handleLogout">
+        <n-button
+          quaternary
+          type="error"
+          size="small"
+          data-testid="logout-button"
+          @click="handleLogout"
+        >
           <template #icon>
             <n-icon>
               <LogOutOutline />
