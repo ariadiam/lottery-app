@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
@@ -19,6 +19,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.88.0",
     "@vicons/ionicons5": "^0.13.0",
+    "naive-ui": "^2.43.2",
     "pinia": "^3.0.4",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"
@@ -37,7 +38,6 @@
     "eslint-plugin-vue": "~10.5.1",
     "jiti": "^2.6.1",
     "jsdom": "^27.2.0",
-    "naive-ui": "^2.43.2",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.6.2",
     "sass": "^1.97.0",
